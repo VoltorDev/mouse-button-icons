@@ -6,7 +6,8 @@ from PIL import Image, ImageDraw
 S = 8  # supersampling
 BLANCO = (240, 240, 240, 255)
 CUERPO = (45, 45, 50, 255)
-APAGADO = (95, 95, 100, 255)
+APAGADO = (70, 70, 75, 255)
+FONDO = (0, 0, 0, 225)  # placa oscura para que la habilidad de debajo no se mezcle
 LUZ = (255, 190, 0, 255)
 
 # Botones: (forma, caja en píxeles de un lienzo de 32x32)
@@ -23,6 +24,7 @@ BOTONES = {
 def icono(activo):
     im = Image.new("RGBA", (32 * S, 32 * S), (0, 0, 0, 0))
     d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, 32 * S - 1, 32 * S - 1], radius=6 * S, fill=FONDO)
     d.rounded_rectangle([11 * S, 0, 31 * S, 32 * S - 1], radius=8 * S, fill=CUERPO, outline=BLANCO, width=2 * S)
     d.line([23.5 * S, 0, 23.5 * S, 12 * S], fill=BLANCO, width=S)
     d.line([11 * S, 12 * S, 31 * S, 12 * S], fill=BLANCO, width=S)
