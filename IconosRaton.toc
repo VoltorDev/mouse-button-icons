@@ -1,0 +1,8 @@
+## Interface: 120100, 120105, 16001
+## Title: IconosRaton
+## Notes: Muestra un icono del ratón en lugar de "Botón 4/5" en los atajos de las barras de acción.
+## Author: Nico
+## Version: 1.0.0
+## IconTexture: Interface\AddOns\IconosRaton\media\boton5
+
+IconosRaton.lua
