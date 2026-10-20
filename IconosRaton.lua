@@ -74,8 +74,10 @@ local function Actualizar(boton)
 	local texto, apaisado = TextoConIcono(tecla)
 	if texto then
 		if apaisado then
-			-- Blizzard deja el texto 8 px más estrecho que el botón; el icono lateral necesita todo el ancho.
-			hotkey:SetWidth(boton:GetWidth())
+			-- Blizzard deja el texto 8 px más estrecho que el botón y recorta lo que no cabe: "S+" con el
+			-- icono lateral no entra. Se ensancha de sobra; al estar anclado arriba a la derecha, crece hacia
+			-- la izquierda y como mucho asoma un poco por el borde del botón.
+			hotkey:SetWidth(boton:GetWidth() + 24)
 		end
 		hotkey:SetText(texto)
 		hotkey:Show()
