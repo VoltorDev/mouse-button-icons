@@ -60,7 +60,8 @@ local function TextoConIcono(tecla)
 	if not icono then
 		return nil
 	end
-	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. icono[2].alto .. ":" .. icono[2].ancho .. "|t", icono[2] == LATERAL
+	local vista = icono[2]
+	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. vista.alto .. ":" .. vista.ancho .. "|t", vista == LATERAL
 end
 
 local function Actualizar(boton)
