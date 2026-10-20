@@ -2,17 +2,19 @@
 -- por un icono del ratón con el botón resaltado. Solo cambia lo que se ve; no toca los atajos.
 
 local RUTA = "Interface\\AddOns\\IconosRaton\\media\\"
-local TAM = 16 -- alto y ancho del icono, en píxeles de interfaz
+local ALTO = 16 -- alto del icono, en píxeles de interfaz
 
+-- Vista lateral (apaisada, 2:1) para los botones del pulgar; vista superior (cuadrada) para los de arriba.
 -- BUTTON4 = atrás (G4), BUTTON5 = adelante (G5), BUTTON3 = rueda.
 -- F10-F12 son las teclas que el perfil de WoW de G HUB envía con G6 (diana), G7 y G8.
+local LATERAL, SUPERIOR = 2, 1 -- ancho / alto
 local ICONOS = {
-	BUTTON3 = RUTA .. "boton3",
-	BUTTON4 = RUTA .. "boton4",
-	BUTTON5 = RUTA .. "boton5",
-	F10 = RUTA .. "g6",
-	F11 = RUTA .. "g7",
-	F12 = RUTA .. "g8",
+	BUTTON4 = { "boton4", LATERAL },
+	BUTTON5 = { "boton5", LATERAL },
+	F10 = { "g6", LATERAL },
+	BUTTON3 = { "boton3", SUPERIOR },
+	F11 = { "g7", SUPERIOR },
+	F12 = { "g8", SUPERIOR },
 }
 
 local MODIFICADORES = {
@@ -34,7 +36,8 @@ local BARRAS = {
 	"MultiBar7Button",
 }
 
--- Devuelve el texto con icono para una tecla como "SHIFT-BUTTON4", o nil si no es un botón del ratón.
+-- Devuelve el texto con icono para una tecla como "SHIFT-BUTTON4" y si el icono es apaisado,
+-- o nil si no es un botón del ratón.
 local function TextoConIcono(tecla)
 	if type(tecla) ~= "string" then
 		return nil
@@ -57,7 +60,7 @@ local function TextoConIcono(tecla)
 	if not icono then
 		return nil
 	end
-	return prefijo .. "|T" .. icono .. ":" .. TAM .. ":" .. TAM .. "|t"
+	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. ALTO .. ":" .. ALTO * icono[2] .. "|t", icono[2] == LATERAL
 end
 
 local function Actualizar(boton)
@@ -67,8 +70,12 @@ local function Actualizar(boton)
 	end
 	local tecla = GetBindingKey(boton.bindingAction)
 		or GetBindingKey("CLICK " .. boton:GetName() .. ":LeftButton")
-	local texto = TextoConIcono(tecla)
+	local texto, apaisado = TextoConIcono(tecla)
 	if texto then
+		if apaisado then
+			-- Blizzard deja el texto 8 px más estrecho que el botón; el icono lateral necesita todo el ancho.
+			hotkey:SetWidth(boton:GetWidth())
+		end
 		hotkey:SetText(texto)
 		hotkey:Show()
 	end
