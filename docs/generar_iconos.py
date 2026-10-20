@@ -1,5 +1,6 @@
 """Genera media/*.tga con dos vistas del G502 HERO:
-- lateral (64x32, se ve desde la izquierda con la punta a la izquierda): G4, G5 y G6 (diana);
+- lateral (32x64, se ve desde la izquierda, girada 90° a la derecha para que la punta quede arriba
+  como en la vista superior y como Nico ve el ratón): G4, G5 y G6 (diana);
 - superior (32x32, solo la mitad delantera y con la punta arriba): G7, G8 y la rueda.
 Uso: python generar_iconos.py <carpeta media> <carpeta docs>"""
 import sys
@@ -32,7 +33,8 @@ def lateral(activo):
         d.rounded_rectangle([v * S for v in caja], radius=3 * S, fill=c, outline=BLANCO, width=int(1.5 * S))
     c = LUZ if activo == "g6" else APAGADO
     d.ellipse([7 * S, 18 * S, 14 * S, 25 * S], fill=c, outline=BLANCO, width=int(1.5 * S))
-    return im.resize((64, 32), Image.LANCZOS)
+    # se dibuja tumbado y se gira 90° a la derecha: la punta pasa de la izquierda a arriba
+    return im.rotate(-90, expand=True).resize((32, 64), Image.LANCZOS)
 
 
 def superior(activo):

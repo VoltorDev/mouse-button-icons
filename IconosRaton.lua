@@ -3,10 +3,10 @@
 
 local RUTA = "Interface\\AddOns\\IconosRaton\\media\\"
 
--- Vista lateral (apaisada, 2:1) para los botones del pulgar; vista superior (cuadrada) para los de arriba.
--- BUTTON4 = atrás (G4), BUTTON5 = adelante (G5), BUTTON3 = rueda.
+-- Vista lateral (vertical, 1:2, con la punta arriba) para los botones del pulgar; vista superior
+-- (cuadrada) para los de arriba. BUTTON4 = atrás (G4), BUTTON5 = adelante (G5), BUTTON3 = rueda.
 -- F10-F12 son las teclas que el perfil de WoW de G HUB envía con G6 (diana), G7 y G8.
-local LATERAL = { ancho = 32, alto = 16 } -- en píxeles de interfaz
+local LATERAL = { ancho = 11, alto = 22 } -- en píxeles de interfaz
 local SUPERIOR = { ancho = 20, alto = 20 }
 local ICONOS = {
 	BUTTON4 = { "boton4", LATERAL },
@@ -36,8 +36,7 @@ local BARRAS = {
 	"MultiBar7Button",
 }
 
--- Devuelve el texto con icono para una tecla como "SHIFT-BUTTON4" y si el icono es apaisado,
--- o nil si no es un botón del ratón.
+-- Devuelve el texto con icono para una tecla como "SHIFT-BUTTON4", o nil si no es un botón del ratón.
 local function TextoConIcono(tecla)
 	if type(tecla) ~= "string" then
 		return nil
@@ -61,7 +60,7 @@ local function TextoConIcono(tecla)
 		return nil
 	end
 	local vista = icono[2]
-	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. vista.alto .. ":" .. vista.ancho .. "|t", vista == LATERAL
+	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. vista.alto .. ":" .. vista.ancho .. "|t"
 end
 
 local function Actualizar(boton)
@@ -71,14 +70,8 @@ local function Actualizar(boton)
 	end
 	local tecla = GetBindingKey(boton.bindingAction)
 		or GetBindingKey("CLICK " .. boton:GetName() .. ":LeftButton")
-	local texto, apaisado = TextoConIcono(tecla)
+	local texto = TextoConIcono(tecla)
 	if texto then
-		if apaisado then
-			-- Blizzard deja el texto 8 px más estrecho que el botón y recorta lo que no cabe: "S+" con el
-			-- icono lateral no entra. Se ensancha de sobra; al estar anclado arriba a la derecha, crece hacia
-			-- la izquierda y como mucho asoma un poco por el borde del botón.
-			hotkey:SetWidth(boton:GetWidth() + 24)
-		end
 		hotkey:SetText(texto)
 		hotkey:Show()
 	end

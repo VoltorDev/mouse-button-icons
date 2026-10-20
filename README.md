@@ -22,5 +22,5 @@ atajos no se tocan.
 - G6, G7 y G8 cambian los DPI de fábrica; en el perfil "World of Warcraft" de G HUB están reasignados a
   F10, F11 y F12. Por eso el addon dibuja esas tres teclas como el ratón, también si se pulsan en el teclado.
   Si cambias la asignación en G HUB, cambia la tabla `ICONOS` de `IconosRaton.lua`.
-- Vista lateral (apaisada) para G4, G5 y G6; vista superior de la parte delantera para G7, G8 y la rueda.
+- Vista lateral (vertical, con la punta arriba, como ves el ratón) para G4, G5 y G6; vista superior de la parte delantera para G7, G8 y la rueda.
 - Los iconos (`media/*.tga`) salen de `docs/generar_iconos.py`; las vistas previas están en `docs/`.
