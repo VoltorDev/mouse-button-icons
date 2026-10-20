@@ -2,13 +2,17 @@
 -- por un icono del ratón con el botón resaltado. Solo cambia lo que se ve; no toca los atajos.
 
 local RUTA = "Interface\\AddOns\\IconosRaton\\media\\"
-local TAM = 14 -- alto y ancho del icono, en píxeles de interfaz
+local TAM = 16 -- alto y ancho del icono, en píxeles de interfaz
 
 -- BUTTON4 = atrás (G4), BUTTON5 = adelante (G5), BUTTON3 = rueda.
+-- F10-F12 son las teclas que el perfil de WoW de G HUB envía con G6 (diana), G7 y G8.
 local ICONOS = {
 	BUTTON3 = RUTA .. "boton3",
 	BUTTON4 = RUTA .. "boton4",
 	BUTTON5 = RUTA .. "boton5",
+	F10 = RUTA .. "g6",
+	F11 = RUTA .. "g7",
+	F12 = RUTA .. "g8",
 }
 
 local MODIFICADORES = {
