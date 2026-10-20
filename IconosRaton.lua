@@ -2,12 +2,12 @@
 -- por un icono del ratón con el botón resaltado. Solo cambia lo que se ve; no toca los atajos.
 
 local RUTA = "Interface\\AddOns\\IconosRaton\\media\\"
-local ALTO = 16 -- alto del icono, en píxeles de interfaz
 
 -- Vista lateral (apaisada, 2:1) para los botones del pulgar; vista superior (cuadrada) para los de arriba.
 -- BUTTON4 = atrás (G4), BUTTON5 = adelante (G5), BUTTON3 = rueda.
 -- F10-F12 son las teclas que el perfil de WoW de G HUB envía con G6 (diana), G7 y G8.
-local LATERAL, SUPERIOR = 2, 1 -- ancho / alto
+local LATERAL = { ancho = 32, alto = 16 } -- en píxeles de interfaz
+local SUPERIOR = { ancho = 20, alto = 20 }
 local ICONOS = {
 	BUTTON4 = { "boton4", LATERAL },
 	BUTTON5 = { "boton5", LATERAL },
@@ -60,7 +60,7 @@ local function TextoConIcono(tecla)
 	if not icono then
 		return nil
 	end
-	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. ALTO .. ":" .. ALTO * icono[2] .. "|t", icono[2] == LATERAL
+	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. icono[2].alto .. ":" .. icono[2].ancho .. "|t", icono[2] == LATERAL
 end
 
 local function Actualizar(boton)

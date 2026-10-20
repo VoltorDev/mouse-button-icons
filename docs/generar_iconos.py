@@ -7,9 +7,9 @@ from PIL import Image, ImageDraw
 
 S = 8  # supersampling
 BLANCO = (240, 240, 240, 255)
-CUERPO = (45, 45, 50, 255)
-APAGADO = (70, 70, 75, 255)
-LUZ = (255, 190, 0, 255)
+CUERPO = (28, 28, 32, 255)
+APAGADO = (150, 150, 160, 255)  # visible siempre: es la referencia de posición
+LUZ = (255, 170, 0, 255)
 FONDO = (0, 0, 0, 225)  # placa oscura para que la habilidad de debajo no se mezcle
 
 
@@ -29,9 +29,9 @@ def lateral(activo):
     # botones del pulgar: G5 delante, G4 detrás; la diana delante y más abajo
     for nombre, caja in (("g5", (14, 12, 27, 18)), ("g4", (29, 12, 42, 18))):
         c = LUZ if nombre == activo else APAGADO
-        d.rounded_rectangle([v * S for v in caja], radius=3 * S, fill=c, outline=BLANCO, width=S)
+        d.rounded_rectangle([v * S for v in caja], radius=3 * S, fill=c, outline=BLANCO, width=int(1.5 * S))
     c = LUZ if activo == "g6" else APAGADO
-    d.ellipse([7 * S, 18 * S, 14 * S, 25 * S], fill=c, outline=BLANCO, width=S)
+    d.ellipse([7 * S, 18 * S, 14 * S, 25 * S], fill=c, outline=BLANCO, width=int(1.5 * S))
     return im.resize((64, 32), Image.LANCZOS)
 
 
@@ -45,9 +45,9 @@ def superior(activo):
     d.line([2 * S, 21 * S, 30 * S, 21 * S], fill=BLANCO, width=S)  # fin de los clics
     for nombre, caja in (("g8", (5, 5, 11, 11)), ("g7", (5, 13, 11, 19))):
         c = LUZ if nombre == activo else APAGADO
-        d.rounded_rectangle([v * S for v in caja], radius=S, fill=c, outline=BLANCO, width=S)
+        d.rounded_rectangle([v * S for v in caja], radius=S, fill=c, outline=BLANCO, width=int(1.5 * S))
     c = LUZ if activo == "rueda" else APAGADO
-    d.rounded_rectangle([13 * S, 4 * S, 19 * S, 17 * S], radius=3 * S, fill=c, outline=BLANCO, width=S)
+    d.rounded_rectangle([13 * S, 4 * S, 19 * S, 17 * S], radius=3 * S, fill=c, outline=BLANCO, width=int(1.5 * S))
     return im.resize((32, 32), Image.LANCZOS)
 
 
