@@ -15,6 +15,9 @@ del ratón ("Botón 4", "s+Botón 5"…) y de F10–F12 por un icono del ratón 
 Los modificadores van delante: `S+` (Mayús), `C+` (Ctrl), `A+` (Alt). Solo cambia lo que se ve; los
 atajos no se tocan.
 
+**Opciones** (Opciones > AddOns > IconosRaton o el compartimento de addons, junto al minimapa): activar los
+iconos (apagado, vuelve el texto de Blizzard) y su tamaño (del 60 al 160 %). Se guardan en `IconosRatonDB`.
+
 - Cubre las ocho barras de Blizzard (`ActionButtonUtil.ActionBarButtonNames`). No cubre Bartender4 ni
   las barras de mascota y de forma.
 - Instalado mediante junction en `_retail_` y `_forever_` (`Interface\AddOns\IconosRaton`). Un addon nuevo
@@ -24,3 +27,4 @@ atajos no se tocan.
   Si cambias la asignación en G HUB, cambia la tabla `ICONOS` de `IconosRaton.lua`.
 - Vista lateral (vertical, con la punta arriba, como ves el ratón) para G4, G5 y G6; vista superior de la parte delantera para G7, G8 y la rueda.
 - Los iconos (`media/*.tga`) salen de `docs/generar_iconos.py`; las vistas previas están en `docs/`.
+- Prueba fuera del juego: `python tests/probar.py` (icono, tamaño, apagado, opciones y compartimento).

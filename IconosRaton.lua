@@ -1,5 +1,7 @@
 -- IconosRaton: sustituye el texto de los botones del ratón en el atajo de cada botón de acción
 -- por un icono del ratón con el botón resaltado. Solo cambia lo que se ve; no toca los atajos.
+-- Opciones (Opciones.lua, IconosRatonDB): activado y tamaño de los iconos.
+local _, ns = ...
 
 local RUTA = "Interface\\AddOns\\IconosRaton\\media\\"
 
@@ -36,8 +38,23 @@ local BARRAS = {
 	"MultiBar7Button",
 }
 
+local DEFECTO = { activado = true, tamano = 1 }
+
+-- Opciones guardadas, con los valores por defecto que falten.
+function ns.Opciones()
+	IconosRatonDB = type(IconosRatonDB) == "table" and IconosRatonDB or {}
+	for clave, valor in pairs(DEFECTO) do
+		if IconosRatonDB[clave] == nil then
+			IconosRatonDB[clave] = valor
+		end
+	end
+	return IconosRatonDB
+end
+ns.DEFECTO = DEFECTO
+
 -- Devuelve el texto con icono para una tecla como "SHIFT-BUTTON4", o nil si no es un botón del ratón.
-local function TextoConIcono(tecla)
+-- tamano multiplica el tamaño del icono (1 por defecto).
+local function TextoConIcono(tecla, tamano)
 	if type(tecla) ~= "string" then
 		return nil
 	end
@@ -59,8 +76,9 @@ local function TextoConIcono(tecla)
 	if not icono then
 		return nil
 	end
-	local vista = icono[2]
-	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. vista.alto .. ":" .. vista.ancho .. "|t"
+	local vista, factor = icono[2], tamano or 1
+	local alto, ancho = math.floor(vista.alto * factor + 0.5), math.floor(vista.ancho * factor + 0.5)
+	return prefijo .. "|T" .. RUTA .. icono[1] .. ":" .. alto .. ":" .. ancho .. "|t"
 end
 
 local function Actualizar(boton)
@@ -70,11 +88,17 @@ local function Actualizar(boton)
 	end
 	local tecla = GetBindingKey(boton.bindingAction)
 		or GetBindingKey("CLICK " .. boton:GetName() .. ":LeftButton")
-	local texto = TextoConIcono(tecla)
-	if texto then
-		hotkey:SetText(texto)
-		hotkey:Show()
+	local opciones = ns.Opciones()
+	local texto = TextoConIcono(tecla, opciones.tamano)
+	if not texto then
+		return
 	end
+	if opciones.activado then
+		hotkey:SetText(texto)
+	else
+		hotkey:SetText(GetBindingText(tecla, true)) -- el texto de Blizzard («S-Botón 4»)
+	end
+	hotkey:Show()
 end
 
 local enganchados = {}
@@ -93,6 +117,8 @@ local function EngancharTodo()
 		end
 	end
 end
+
+ns.EngancharTodo = EngancharTodo
 
 local f = CreateFrame("Frame")
 f:RegisterEvent("PLAYER_LOGIN")

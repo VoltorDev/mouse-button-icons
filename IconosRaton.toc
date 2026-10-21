@@ -2,7 +2,10 @@
 ## Title: IconosRaton
 ## Notes: Muestra un icono del ratón en lugar de "Botón 4/5" en los atajos de las barras de acción.
 ## Author: Nico
-## Version: 1.0.0
+## Version: 1.1.0
+## SavedVariables: IconosRatonDB
+## AddonCompartmentFunc: IconosRaton_Compartimento
 ## IconTexture: Interface\AddOns\IconosRaton\media\boton5
 
 IconosRaton.lua
+Opciones.lua
