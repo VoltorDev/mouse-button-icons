@@ -1,20 +1,23 @@
 -- IconosRaton: sustituye el texto de los botones del ratón en el atajo de cada botón de acción
 -- por un icono del ratón con el botón resaltado. Solo cambia lo que se ve; no toca los atajos.
--- Opciones (Opciones.lua, IconosRatonDB): activado y tamaño de los iconos.
+-- Opciones (Opciones.lua, IconosRatonDB): activado, tamaño de los iconos y F10-F12 como G6-G8.
 local _, ns = ...
 
 local RUTA = "Interface\\AddOns\\IconosRaton\\media\\"
 
 -- Vista lateral (vertical, 1:2, con la punta arriba) para los botones del pulgar; vista superior
 -- (cuadrada) para los de arriba. BUTTON4 = atrás (G4), BUTTON5 = adelante (G5), BUTTON3 = rueda.
--- F10-F12 son las teclas que el perfil de WoW de G HUB envía con G6 (diana), G7 y G8.
+-- F10-F12 son las teclas que el perfil de WoW de G HUB envía con G6 (diana), G7 y G8 en un ratón
+-- Logitech G502; solo se dibujan así con la opción teclasGHub.
 local LATERAL = { ancho = 11, alto = 22 } -- en píxeles de interfaz
 local SUPERIOR = { ancho = 20, alto = 20 }
 local ICONOS = {
 	BUTTON4 = { "boton4", LATERAL },
 	BUTTON5 = { "boton5", LATERAL },
-	F10 = { "g6", LATERAL },
 	BUTTON3 = { "boton3", SUPERIOR },
+}
+local ICONOS_GHUB = {
+	F10 = { "g6", LATERAL },
 	F11 = { "g7", SUPERIOR },
 	F12 = { "g8", SUPERIOR },
 }
@@ -38,11 +41,16 @@ local BARRAS = {
 	"MultiBar7Button",
 }
 
-local DEFECTO = { activado = true, tamano = 1 }
+local DEFECTO = { activado = true, tamano = 1, teclasGHub = false }
 
 -- Opciones guardadas, con los valores por defecto que falten.
 function ns.Opciones()
-	IconosRatonDB = type(IconosRatonDB) == "table" and IconosRatonDB or {}
+	local nueva = type(IconosRatonDB) ~= "table"
+	IconosRatonDB = nueva and {} or IconosRatonDB
+	-- Hasta la 1.1.0, F10-F12 salían siempre como G6-G8: quien ya tenía opciones guardadas lo conserva.
+	if not nueva and IconosRatonDB.teclasGHub == nil and IconosRatonDB.activado ~= nil then
+		IconosRatonDB.teclasGHub = true
+	end
 	for clave, valor in pairs(DEFECTO) do
 		if IconosRatonDB[clave] == nil then
 			IconosRatonDB[clave] = valor
@@ -53,8 +61,8 @@ end
 ns.DEFECTO = DEFECTO
 
 -- Devuelve el texto con icono para una tecla como "SHIFT-BUTTON4", o nil si no es un botón del ratón.
--- tamano multiplica el tamaño del icono (1 por defecto).
-local function TextoConIcono(tecla, tamano)
+-- tamano multiplica el tamaño del icono (1 por defecto); con ghub, F10-F12 también son botones del ratón.
+local function TextoConIcono(tecla, tamano, ghub)
 	if type(tecla) ~= "string" then
 		return nil
 	end
@@ -72,7 +80,7 @@ local function TextoConIcono(tecla, tamano)
 			end
 		end
 	end
-	local icono = ICONOS[resto]
+	local icono = ICONOS[resto] or (ghub and ICONOS_GHUB[resto])
 	if not icono then
 		return nil
 	end
@@ -86,16 +94,22 @@ local function Actualizar(boton)
 	if not hotkey or not boton.bindingAction then
 		return
 	end
-	local tecla = GetBindingKey(boton.bindingAction)
-		or GetBindingKey("CLICK " .. boton:GetName() .. ":LeftButton")
+	local tecla = GetBindingKey(boton.bindingAction) or GetBindingKey("CLICK " .. boton:GetName() .. ":LeftButton")
 	local opciones = ns.Opciones()
-	local texto = TextoConIcono(tecla, opciones.tamano)
+	local texto = TextoConIcono(tecla, opciones.tamano, opciones.teclasGHub)
 	if not texto then
+		-- F10-F12 con la opción recién apagada: quitar el icono que quedó pintado.
+		local actual = hotkey:GetText()
+		if type(actual) == "string" and actual:find("AddOns\\IconosRaton\\", 1, true) then
+			---@diagnostic disable-next-line: param-type-mismatch -- 2.º argumento no string, como Blizzard (ActionButton.lua:501)
+			hotkey:SetText(GetBindingText(tecla, true))
+		end
 		return
 	end
 	if opciones.activado then
 		hotkey:SetText(texto)
 	else
+		---@diagnostic disable-next-line: param-type-mismatch -- 2.º argumento no string, como Blizzard (ActionButton.lua:501)
 		hotkey:SetText(GetBindingText(tecla, true)) -- el texto de Blizzard («S-Botón 4»)
 	end
 	hotkey:Show()

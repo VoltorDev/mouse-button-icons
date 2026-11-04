@@ -1,8 +1,11 @@
 ## Interface: 120100, 120105, 16001
 ## Title: IconosRaton
-## Notes: Muestra un icono del ratón en lugar de "Botón 4/5" en los atajos de las barras de acción.
+## Notes: Shows a mouse icon instead of "Mouse Button 4/5" on your action bar keybinds.
+## Notes-esES: Muestra un icono del ratón en lugar de "Botón 4/5" en los atajos de las barras de acción.
+## Notes-esMX: Muestra un icono del ratón en lugar de "Botón 4/5" en los atajos de las barras de acción.
 ## Author: Nico
-## Version: 1.1.0
+## Version: 1.2.0
+## X-License: MIT
 ## SavedVariables: IconosRatonDB
 ## AddonCompartmentFunc: IconosRaton_Compartimento
 ## IconTexture: Interface\AddOns\IconosRaton\media\boton5

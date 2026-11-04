@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.1",
+  "workspace.checkThirdParty": false,
+  "workspace.library": [
+    "C:/Users/Nico/Desktop/Claude/asistente-nico/wow-forever/referencia/vscode-wow-api/Annotations/Core",
+    "C:/Users/Nico/Desktop/Claude/asistente-nico/wow-forever/referencia/vscode-wow-api/Annotations/FrameXML",
+    "${3rd}/busted/library",
+    "${3rd}/luassert/library"
+  ],
+  "workspace.ignoreDir": [
+    "tests",
+    "docs"
+  ],
+  "diagnostics.globals": [
+    "IconosRatonDB",
+    "IconosRaton_Compartimento",
+    "IconosRaton_TextoConIcono",
+    "Settings",
+    "MinimalSliderWithSteppersMixin"
+  ]
+}

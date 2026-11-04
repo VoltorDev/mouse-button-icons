@@ -8,12 +8,15 @@ RAIZ = Path(__file__).resolve().parent.parent
 L = lua51.LuaRuntime(unpack_returned_tuples=True)
 L.execute("""
 -- Un botón de barra con su atajo, y lo justo del cliente.
-local function fuente() return { SetText = function(self, t) self.texto = t end, Show = function() end } end
+local function fuente() return { SetText = function(self, t) self.texto = t end, GetText = function(self) return self.texto end, Show = function() end } end
 ActionButton1 = { HotKey = fuente(), bindingAction = "ACTIONBUTTON1", UpdateHotkeys = function() end,
                   GetName = function() return "ActionButton1" end }
 ActionButton2 = { HotKey = fuente(), bindingAction = "ACTIONBUTTON2", UpdateHotkeys = function() end,
                   GetName = function() return "ActionButton2" end }
-TECLAS = { ACTIONBUTTON1 = "SHIFT-BUTTON4", ACTIONBUTTON2 = "Q" }
+ActionButton3 = { HotKey = fuente(), bindingAction = "ACTIONBUTTON3", UpdateHotkeys = function() end,
+                  GetName = function() return "ActionButton3" end }
+TECLAS = { ACTIONBUTTON1 = "SHIFT-BUTTON4", ACTIONBUTTON2 = "Q", ACTIONBUTTON3 = "F10" }
+GetLocale = function() return LOCALE or "enUS" end
 GetBindingKey = function(accion) return TECLAS[accion] end
 GetBindingText = function(tecla) return "texto:" .. tecla end
 hooksecurefunc = function() end
@@ -64,6 +67,13 @@ L.execute('DISPARAR("PLAYER_LOGIN")')
 espera(L.eval("REGISTRADA and REGISTRADA.nombre") == "IconosRaton", "registra el menú en PLAYER_LOGIN")
 espera(texto() == "S+|TInterface\\AddOns\\IconosRaton\\media\\boton4:22:11|t", f"icono por defecto: {texto()}")
 espera(L.eval("ActionButton2.HotKey.texto") is None, "una tecla normal no se toca")
+espera(L.eval("ActionButton3.HotKey.texto") is None, "instalación nueva: F10 sigue como tecla")
+espera(L.eval("IconosRatonDB.teclasGHub") is False, "instalación nueva: teclasGHub apagada")
+L.execute("AJUSTES.IconosRaton_TeclasGHub:SetValue(true)")
+espera((L.eval("ActionButton3.HotKey.texto") or "").endswith("media\\g6:22:11|t"), "con la opción, F10 es G6")
+L.execute("AJUSTES.IconosRaton_TeclasGHub:SetValue(false)")
+espera(L.eval("ActionButton3.HotKey.texto") == "texto:F10", "sin la opción, F10 vuelve al texto de Blizzard")
+espera(L.eval("IconosRaton_TextoConIcono('F10', 1, true)") is not None and L.eval("IconosRaton_TextoConIcono('F10', 1, false)") is None, "TextoConIcono respeta ghub")
 
 L.execute("AJUSTES.IconosRaton_Tamano:SetValue(1.5)")
 espera(texto().endswith("boton4:33:17|t"), f"tamaño al 150 %: {texto()}")
@@ -79,6 +89,14 @@ espera(L.eval("ABIERTO") == 3, "el compartimento abre el menú")
 L.execute("ABIERTO = nil COMBATE = true IconosRaton_Compartimento()")
 espera(L.eval("ABIERTO") is None, "en combate no abre Opciones")
 
+# Quien venía de la 1.1.0 (opciones guardadas sin teclasGHub) conserva F10-F12 como G6-G8.
+L.execute("IconosRatonDB = { activado = true, tamano = 1 }")
+ns2 = L.table()
+cargar((RAIZ / "IconosRaton.lua").read_text(encoding="utf-8"), "IconosRaton.lua", ns2)
+espera(ns2.Opciones().teclasGHub is True, "migración desde 1.1.0: teclasGHub encendida")
+L.execute("IconosRatonDB = nil")
+espera(ns2.Opciones().teclasGHub is False, "sin opciones previas: teclasGHub apagada")
+
 if fallos:
     sys.exit("FALLA:\n  " + "\n  ".join(fallos))
-print("OK: icono, tamaño, apagado con el texto de Blizzard, opciones guardadas y compartimento")
+print("OK: icono, tamaño, apagado con el texto de Blizzard, F10-F12 de G HUB opcional y su migración, opciones guardadas y compartimento")
