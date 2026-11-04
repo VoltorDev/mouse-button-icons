@@ -12,7 +12,7 @@ y `api_forever` limpios. **Sin ver en el cliente** la opción nueva.
 
 Los iconos (`media/*.tga`) los dibuja `docs/generar_iconos.py`: son propios, no arte de Blizzard ni de Logitech.
 
-**Subido el 04-11-2026 hacia las 07:00 (por Claude, con la sesión de Nico en el navegador de la app, por orden suya):** proyecto «Mouse Button Icons», n.º **1782811** (`https://authors.curseforge.com/#/projects/1782811`), estado «New» hasta que lo apruebe un moderador. Fichero «Mouse Button Icons 1.2.0», tipo Release, versiones Retail 12.1.5 y 12.1.0, Forever 1.60.1, publicación automática al aprobarse, changelog del kit. Licencia MIT, distribución a terceros permitida (WowUp y otros gestores), comentarios activados, avatar `docs/avatar-curseforge.png` (lo dibuja `mods/herramientas/avatares_curseforge.py`). Falta: capturas (solo en el juego) y, cuando se vea en el cliente, pasar el fichero a Release si es Beta.
+**Subido el 04-11-2026 hacia las 07:00 (por Claude, con la sesión de Nico en el navegador de la app, por orden suya):** proyecto «Mouse Button Icons», n.º **1782811** (`https://authors.curseforge.com/#/projects/1782811`), estado «New» hasta que lo apruebe un moderador. Fichero «Mouse Button Icons 1.2.0», tipo Release, versiones Retail 12.1.5 y 12.1.0, Forever 1.60.1, publicación automática al aprobarse, changelog del kit. Licencia MIT, distribución a terceros permitida (WowUp y otros gestores), comentarios activados, avatar `docs/avatar-curseforge.png` (lo dibuja `mods/herramientas/avatares_curseforge.py`). Falta: capturas (solo en el juego) y verlo en el cliente.
 
 ## Campos del formulario
 
