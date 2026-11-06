@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.1 (05-11-2026)
+
+- The addon list in game now shows its English name, **Mouse Button Icons** (the folder is still `IconosRaton`, so your settings are kept). No other changes.
+
 ## 1.2.0 (03-11-2026)
 
 - F10, F11 and F12 are drawn as the G6, G7 and G8 buttons of a Logitech G502 only with the new option

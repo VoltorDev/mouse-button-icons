@@ -23,6 +23,7 @@ Los iconos (`media/*.tga`) los dibuja `docs/generar_iconos.py`: son propios, no 
 | Resumen | `Replaces "Mouse Button 4/5" on your action bar keybinds with a small mouse icon that highlights the button.` |
 | Categoría principal | Action Bars (secundaria: Artwork). Comprobar los nombres exactos en el formulario |
 | Licencia | MIT |
+| Donaciones | Ko-fi, usuario `thevoltor` (General › Donation Method). Puesto el 05-11-2026; sale como botón «Donate» en la página, y además el botón «Buy me a coffee» bajo la introducción de la descripción (con `width`: CurseForge quita el estilo de altura y sin él sale a 580 px). Nunca dentro del addon: la política de Blizzard prohíbe pedir donaciones en la interfaz |
 | Versiones de juego | Retail 12.1.x y Forever 1.60.1 (Interface 120100, 120105, 16001) |
 | Tipo de fichero | Release (es pequeño y la parte de siempre ya se usa en el juego); Beta si Nico prefiere ver antes la opción nueva |
 | Avatar | 400×400: puede salir de `docs/generar_iconos.py` a mayor tamaño. **Falta** |
@@ -36,6 +37,8 @@ with the pressed button highlighted in yellow. Modifiers stay in front: `S+` (Sh
 Only what you see changes; your keybinds are never touched.
 
 Works on **Retail (Midnight 12.1)** and **World of Warcraft: Forever**.
+
+<p align="center"><a href="https://ko-fi.com/thevoltor"><img src="https://storage.ko-fi.com/cdn/kofi6.png?v=6" alt="Buy Me a Coffee at ko-fi.com" width="145" height="36"></a><br><em>Free and always will be. If it helps you, you can buy me a coffee.</em></p>
 
 - Side view for the thumb buttons (4 and 5), top view for the wheel click (3).
 - Covers the eight Blizzard action bars. Bartender4, pet and stance bars are not covered.
@@ -61,3 +64,5 @@ El de `CHANGELOG.md` (sección 1.2.0), que ya está en inglés.
 3. **Plazo** para el lanzamiento de Forever: aprobado antes del **04-11-2026 a las 15:00** (moderación de 08:00 a
    15:00, hora de España).
 4. Commitear los cambios de la 1.2.0 cuando los dé por buenos (`git status` en la carpeta).
+
+**1.2.1, nombre en inglés (05-11-2026, por orden de Nico: «Nombres en inglés siempre»):** el `## Title` del TOC pasa a «Mouse Button Icons» y el zip a `mods\wow\dist\MouseButtonIcons-1.2.1.zip`. Es el zip publicado anterior con solo el título y la versión cambiados (los cambios sin publicar del repo no entran); la carpeta interna sigue siendo `IconosRaton`, así que las SavedVariables y la junction de `Interface\AddOns` no cambian. Subido como Release con las mismas versiones de juego; pasa por moderación. Desde ahora `empaquetar-wow.py` nombra el zip por el `## Title`.
