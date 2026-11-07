@@ -28,3 +28,9 @@ iconos (apagado, vuelve el texto de Blizzard) y su tamaño (del 60 al 160 %). Se
 - Vista lateral (vertical, con la punta arriba, como ves el ratón) para G4, G5 y G6; vista superior de la parte delantera para G7, G8 y la rueda.
 - Los iconos (`media/*.tga`) salen de `docs/generar_iconos.py`; las vistas previas están en `docs/`.
 - Prueba fuera del juego: `python tests/probar.py` (icono, tamaño, apagado, opciones y compartimento).
+
+## Capturas
+
+![Barras con los iconos del ratón](docs/screenshots/action-bars.png)
+
+![Opciones](docs/screenshots/options.png)

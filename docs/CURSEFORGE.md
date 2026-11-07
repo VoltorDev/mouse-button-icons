@@ -27,7 +27,7 @@ Los iconos (`media/*.tga`) los dibuja `docs/generar_iconos.py`: son propios, no 
 | Versiones de juego | Retail 12.1.x y Forever 1.60.1 (Interface 120100, 120105, 16001) |
 | Tipo de fichero | Release (es pequeño y la parte de siempre ya se usa en el juego); Beta si Nico prefiere ver antes la opción nueva |
 | Avatar | 400×400: puede salir de `docs/generar_iconos.py` a mayor tamaño. **Falta** |
-| Capturas | **Faltan**: una barra con los atajos `S+` y el icono, y el menú de opciones |
+| Capturas | `docs/screenshots/`: `action-bars.png`, `options.png` (cliente en inglés, brujo nivel 9, 07-11-2026) |
 
 ## Descripción (pegar en el editor de CurseForge)
 
@@ -66,3 +66,5 @@ El de `CHANGELOG.md` (sección 1.2.0), que ya está en inglés.
 4. Commitear los cambios de la 1.2.0 cuando los dé por buenos (`git status` en la carpeta).
 
 **1.2.1, nombre en inglés (05-11-2026, por orden de Nico: «Nombres en inglés siempre»):** el `## Title` del TOC pasa a «Mouse Button Icons» y el zip a `mods\wow\dist\MouseButtonIcons-1.2.1.zip`. Es el zip publicado anterior con solo el título y la versión cambiados (los cambios sin publicar del repo no entran); la carpeta interna sigue siendo `IconosRaton`, así que las SavedVariables y la junction de `Interface\AddOns` no cambian. Subido como Release con las mismas versiones de juego; pasa por moderación. Desde ahora `empaquetar-wow.py` nombra el zip por el `## Title`.
+
+**Capturas (07-11-2026, por Claude con la sesión de Nico en Chrome, por orden suya: «Faltan los otros addons»):** `action-bars.png`, `options.png` de `docs/screenshots/` subidas a Media (galería), con el título por defecto de CurseForge.
